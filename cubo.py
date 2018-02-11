@@ -3,34 +3,7 @@
 from random import randrange
 from Tkinter import Canvas,Tk
 from tkFont import Font
-'''
-master = Tk()
 
-w = Canvas(master, width=500, height=500)
-
-w.create_rectangle(80, 20, 100, 40, fill="green")
-w.create_rectangle(100, 20, 120, 40, fill="green")
-w.create_rectangle(120, 20, 140, 40, fill="green")
-w.create_rectangle(80, 40, 100, 60, fill="green")
-w.create_rectangle(100, 40, 120, 60, fill="green")
-w.create_rectangle(120, 40, 140, 60, fill="green")
-w.create_rectangle(80, 60, 100, 80, fill="green")
-w.create_rectangle(100, 60, 120, 80, fill="green")
-w.create_rectangle(120, 60, 140, 80, fill="green")
-
-w.create_rectangle(20, 80, 40, 100, fill="red")
-w.create_rectangle(40, 80, 60, 100, fill="red")
-w.create_rectangle(60, 80, 80, 100, fill="red")
-id = w.create_text(90, 30, text="00")
-id = w.create_text(110, 30, text="01")
-id = w.create_text(130, 30, text="02")
-id = w.create_text(90, 50, text="03")
-id = w.create_text(110, 50, text="L", font=Font(weight='bold', size=11))
-id = w.create_text(130, 50, text="04")
-#w.create_rectangle(30, 30, 100, 100, fill="green", outline = 'blue') 
-w.pack()
-master.mainloop()
-'''
 class Cubo:
     moves={
         'F1': ( ( 16,24,47,0),    (19,27,44,3),   (21,29,42,5),    (10,15,13,8),    (12,14,11,9)    ), #F1 é giro de 90º horário da face F (Front)
@@ -66,6 +39,19 @@ class Cubo:
         else: pass
         
     def __str__(self):
+        #posição de cada célula no grid do canvas para montar a representaça do cubo
+        cels_canvas=(3,15,27,4,28,5,17,29,36,48,60,37,61,38,50,62,39,51,63,40,64,41,53,65,75,87,99,76,100,77,89,101,42,54,66,43,67,44,56,68,45,57,69,46,70,47,59,71)
+        master = Tk()
+        w = Canvas(master, width=280, height=220)
+        for pos,id_quadrado in enumerate(self.config):
+            w.create_rectangle(20+(cels_canvas[pos]%12)*20, 20+(cels_canvas[pos]/12)*20, 40+(cels_canvas[pos]%12)*20, 40+(cels_canvas[pos]/12)*20, fill=['green','red','white','blue','orange','yellow'][id_quadrado/8])
+            w.create_text(30+(cels_canvas[pos]%12)*20, 30+(cels_canvas[pos]/12)*20, text=str(id_quadrado))
+
+        for fixo in [{'pos':16, 't':'L', 'c':'green'},{'pos':49, 't':'F', 'c':'red'},{'pos':52, 't':'U', 'c':'white'},{'pos':55, 't':'B', 'c':'orange'},{'pos':88, 't':'R', 'c':'blue'},{'pos':58, 't':'D', 'c':'yellow'} ]:
+            w.create_rectangle(20+(fixo['pos']%12)*20, 20+(fixo['pos']/12)*20, 40+(fixo['pos']%12)*20, 40+(fixo['pos']/12)*20, fill=fixo['c'])
+            w.create_text(30+(fixo['pos']%12)*20, 30+(fixo['pos']/12)*20, text=fixo['t'], font=Font(weight='bold', size=11))
+        w.pack()
+        master.mainloop()
         return str(self.config)
 
     def permute(self, seq):
@@ -82,9 +68,16 @@ class Cubo:
     def shuffle(self, n=20):
         for i in range(n): self.permute(self.moves.keys()[randrange(18)] )
 
+
+
+print "Novo Cubo todo arrumadinho"
 cubo=Cubo()
+print cubo
 
+print "Cubo depois do movimento F2"
+cubo.permute('F1')
+print cubo
 
+print "Cubo embaralhado"
 cubo.shuffle()
-
 print cubo
