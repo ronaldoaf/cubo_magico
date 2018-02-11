@@ -74,7 +74,7 @@ print "Novo Cubo todo arrumadinho"
 cubo=Cubo()
 print cubo
 
-print "Cubo depois do movimento F2"
+print "Cubo depois do movimento F1"
 cubo.permute('F1')
 print cubo
 
