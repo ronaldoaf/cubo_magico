@@ -40,7 +40,7 @@ class Cubo:
         
     def __str__(self):
         #posição de cada célula no grid do canvas para montar a representaça do cubo
-        cels_canvas=(3,15,27,4,28,5,17,29,36,48,60,37,61,38,50,62,39,51,63,40,64,41,53,65,75,87,99,76,100,77,89,101,42,54,66,43,67,44,56,68,45,57,69,46,70,47,59,71)
+        cels_canvas=(3,4,5,15,17,27,28,29,36,37,38,48,50,60,61,62,39,40,41,51,53,63,64,65,75,76,77,87,89,99,100,101,42,43,44,54,56,66,67,68,45,46,47,57,59,69,70,71)
         master = Tk()
         w = Canvas(master, width=280, height=220)
         for pos,id_quadrado in enumerate(self.config):
@@ -66,7 +66,8 @@ class Cubo:
                 self.config[s[0]]=z
             
     def shuffle(self, n=20):
-        for i in range(n): self.permute(self.moves.keys()[randrange(18)] )
+        for i in range(n):
+            self.permute(self.moves.keys()[randrange(18)] )
 
 
 
@@ -74,8 +75,8 @@ print "Novo Cubo todo arrumadinho"
 cubo=Cubo()
 print cubo
 
-print "Cubo depois do movimento F1"
-cubo.permute('F1')
+print "Cubo depois do movimento U2"
+cubo.permute('U2')
 print cubo
 
 print "Cubo embaralhado"
