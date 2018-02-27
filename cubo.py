@@ -69,16 +69,63 @@ class Cubo:
         for i in range(n):
             self.permute(self.moves.keys()[randrange(18)] )
 
+    def isG1(self):
+        res=[
+            (9,(1,3,4,6)),
+            (11,(1,3,4,6)),
+            (12,(1,3,4,6)),
+            (14,(1,3,4,6)),
+            (17,(1,3,4,6)),
+            (19,(9,11,12,14,17)),
+            (20,(9,11,12,14,17)),
+            (22,(1,3,4,6,19,20)),
+            (25,(9,11,12,14,22)),
+            (27,(9,11,12,14,22)),
+            (28,(9,11,12,14,22)),
+            (30,(9,11,12,14,22)),
+            (33,(1,3,4,6,19,20,25,37,28)),
+            (35,(1,3,4,6,19,20,25,37,28)),
+            (36,(1,3,4,6,19,20,25,37,28)),
+            (38,(1,3,4,6,19,20,25,37,28)),
+            (41,(1,3,4,6,19,20,25,37,28)),
+            (43,(9,11,12,14,22,33,35,36,38,41)),
+            (44,(9,11,12,14,22,33,35,36,38,41)),
+            (46,(1,3,4,6,19,20,25,37,28,43,44))
+            ]
+        for r in res:
+            for pos in r[1]:
+                if self.config[pos]==r[0]:
+                    print [r[0],pos]
+                    return False
+        return True
+
 
 
 print "Novo Cubo todo arrumadinho"
 cubo=Cubo()
 print cubo
 
-print "Cubo depois do movimento U2"
-cubo.permute('U2')
-print cubo
 
-print "Cubo embaralhado"
-cubo.shuffle()
-print cubo
+for j in range(1000):
+    for i in range(20):
+        cubo.permute(['L1','R1','F1','B1','U2','D2'][randrange(6)])
+
+    print cubo.isG1()
+
+   #print cubo.config
+
+#print cubo.isG1()
+#print cubo.config
+#print cubo 
+#print sum([ abs(cubo.config[i]-i) for i in range(48)] )/48 
+
+
+
+#print "Cubo depois do movimento U2"
+#cubo.permute('U1')
+#print sum([ abs(cubo.config[i]-i) for i in range(48)] )/48 
+
+
+
+#print "Cubo embaralhado"
+
