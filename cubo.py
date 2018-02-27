@@ -83,11 +83,11 @@ class Cubo:
             (27,(9,11,12,14,22)),
             (28,(9,11,12,14,22)),
             (30,(9,11,12,14,22)),
-            (33,(1,3,4,6,19,20,25,37,28)),
-            (35,(1,3,4,6,19,20,25,37,28)),
-            (36,(1,3,4,6,19,20,25,37,28)),
-            (38,(1,3,4,6,19,20,25,37,28)),
-            (41,(1,3,4,6,19,20,25,37,28)),
+            (33,(1,3,4,6,19,20,25,27,28,30)),
+            (35,(1,3,4,6,19,20,25,27,28,30)),
+            (36,(1,3,4,6,19,20,25,27,28,30)),
+            (38,(1,3,4,6,19,20,25,27,28,30)),
+            (41,(1,3,4,6,19,20,25,27,28,30)),
             (43,(9,11,12,14,22,33,35,36,38,41)),
             (44,(9,11,12,14,22,33,35,36,38,41)),
             (46,(1,3,4,6,19,20,25,37,28,43,44))
@@ -95,7 +95,8 @@ class Cubo:
         for r in res:
             for pos in r[1]:
                 if self.config[pos]==r[0]:
-                    print [r[0],pos]
+                    #print [r[0],pos]
+                    self.notIsG1=[r[0],pos]
                     return False
         return True
 
@@ -103,9 +104,58 @@ class Cubo:
 
 print "Novo Cubo todo arrumadinho"
 cubo=Cubo()
-print cubo
 
 
+cubo.shuffle()
+
+
+dictG1={1:('D','L'),
+        3:('F','L'),
+        4:('B','L'),
+        6:('U','L'),
+        9:('L','F'),
+        11:('D','F'),
+        12:('U','F'),
+        14:('R','F'),
+        17:('L','U'),
+        19:('F','U'),
+        20:('B','U'),
+        22:('R','U'),
+        25:('U','R'),
+        27:('F','R'),
+        28:('B','R'),
+        30:('D','R'),
+        33:('L','B'),
+        35:('U','B'),
+        36:('D','B'),
+        38:('R','B'),
+        41:('L','D'),
+        43:('B','D'),
+        44:('F','D')
+        }
+
+
+
+c=0
+repeat=0
+last_move=''
+while not cubo.isG1() and c<1000: 
+    c+=1
+    
+    next_move=dictG1[cubo.notIsG1[1]][0]+'1'
+    if next_move==last_move:
+        repeat+=1
+    else:
+        repeat=0
+
+    if repeat==3: next_move=dictG1[cubo.notIsG1[1]][1]+'1'
+
+    print cubo.notIsG1, next_move, c
+    cubo.permute(next_move)
+    
+    last_move=next_move
+    
+'''
 for j in range(1000):
     for i in range(20):
         cubo.permute(['L1','R1','F1','B1','U2','D2'][randrange(6)])
@@ -129,3 +179,4 @@ for j in range(1000):
 
 #print "Cubo embaralhado"
 
+'''
